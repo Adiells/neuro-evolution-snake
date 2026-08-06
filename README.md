@@ -6,7 +6,7 @@ Este projeto implementa o clássico jogo da cobrinha (Snake) com uma arquitetura
 
 ## 📌 Estado Atual do Projeto
 
-O projeto encontra-se na fase de **Core Engine e Interface Visual**. Toda a física do jogo, regras, renderização e controle de loop manual estão prontos e testados. 
+O projeto encontra-se na fase de **Core Engine, Interface Visual e Integração com IA**. Toda a física do jogo, regras, renderização e controle de loop manual estão prontos e testados. Os mecanismos básicos para avaliação da Inteligência Artificial (sensores e fitness) também já foram implementados.
 
 ### Módulos Implementados
 
@@ -27,13 +27,18 @@ O projeto encontra-se na fase de **Core Engine e Interface Visual**. Toda a fís
    - Suporte a comandos manuais (W, A, S, D ou setas direcionais).
    - Atalhos rápidos de pausa (`Space` ou `P`) e reinicialização (`R` após fim de jogo).
 
+4. **[individuo.py](individuo.py)**: Camada de abstração do agente (IA).
+   - Implementa a classe `Individuo` que representará cada cobra no Algoritmo Genético.
+   - **Sensores Computados**: Converte o estado absoluto de `jogo.py` em uma visão relativa de 11 variáveis binárias (perigos imediatos e direção da maçã).
+   - **Cálculo de Fitness**: Aplica a fórmula matemática que recompensa a coleta de maçãs (com peso quadrático) e tempo de vida, penalizando a cobra por andar em círculos (inatividade).
+
 ---
 
 ## 🧠 Preparado para Neuroevolução
 
 A arquitetura do motor de jogo foi desenhada sob medida para plugar a IA nos próximos passos:
-* **Entradas (Sensores)**: O estado da cobra e da maçã em [jogo.py](jogo.py) será convertido em 11 sensores booleanos (direção da maçã, perigo imediato à frente, esquerda e direita).
-* **Saídas (Decisões Relativas)**: O método `passo()` de [jogo.py](jogo.py#L32) aceita ações de rotação relativa de 90° (`0 = seguir em frente`, `1 = virar esquerda`, `2 = virar direita`), mapeando exatamente as 3 saídas da Rede Neural Multicamadas (MLP) a ser implementada.
+* **Entradas (Sensores)**: Totalmente funcionais através do `individuo.py`.
+* **Saídas (Decisões Relativas)**: O método `passo()` de [jogo.py](jogo.py#L32) aceita ações de rotação relativa de 90° (`0 = seguir em frente`, `1 = virar esquerda`, `2 = virar direita`), mapeando exatamente as 3 saídas da Rede Neural Multicamadas (MLP) a ser conectada na classe `Individuo`.
 
 ---
 
