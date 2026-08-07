@@ -32,13 +32,20 @@ O projeto encontra-se na fase de **Core Engine, Interface Visual e Integração 
    - **Sensores Computados**: Converte o estado absoluto de `jogo.py` em uma visão relativa de 11 variáveis binárias (perigos imediatos e direção da maçã).
    - **Cálculo de Fitness**: Aplica a fórmula matemática que recompensa a coleta de maçãs (com peso quadrático) e tempo de vida, penalizando a cobra por andar em círculos (inatividade).
 
+5. **[rede_neural.py](rede_neural.py)**: Rede Neural Artificial (Multilayer Perceptron - MLP).
+   - Implementa a estrutura da rede neural com 11 entradas (sensores), uma camada oculta de 10 neurônios e 3 saídas (ações relativas da cobra).
+   - **Ativação e Predição**: Utiliza a função ReLU na camada oculta para introduzir não-linearidade e realiza o *forward pass* para predizer a direção.
+   - **Manipulação de Pesos**: Possui funções para extrair e definir pesos como um vetor 1D do NumPy (140 coeficientes no total), essencial para a otimização via Algoritmo Genético (Neuroevolução).
+   - **Análise Visual**: Permite salvar gráficos de heatmap dos pesos atuais (`pesos_heatmap.png`) para facilitar o diagnóstico do aprendizado.
+
 ---
 
 ## 🧠 Preparado para Neuroevolução
 
 A arquitetura do motor de jogo foi desenhada sob medida para plugar a IA nos próximos passos:
 * **Entradas (Sensores)**: Totalmente funcionais através do `individuo.py`.
-* **Saídas (Decisões Relativas)**: O método `passo()` de [jogo.py](jogo.py#L32) aceita ações de rotação relativa de 90° (`0 = seguir em frente`, `1 = virar esquerda`, `2 = virar direita`), mapeando exatamente as 3 saídas da Rede Neural Multicamadas (MLP) a ser conectada na classe `Individuo`.
+* **Processamento (Rede Neural)**: Estrutura MLP definida em [rede_neural.py](rede_neural.py) pronta para o forward pass.
+* **Saídas (Decisões Relativas)**: O método `passo()` de [jogo.py](jogo.py#L32) aceita ações de rotação relativa de 90° (`0 = seguir em frente`, `1 = virar esquerda`, `2 = virar direita`), mapeando exatamente as 3 saídas da Rede Neural conectada na classe `Individuo`.
 
 ---
 
